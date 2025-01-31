@@ -17,7 +17,7 @@ class DominantColor:
         self.b: int = 0
         self.l: int = 0
         self.resized_image = self.image.resize(
-            (DominantColor.resize_value, DominantColor.resize_value), Image.ANTIALIAS
+            (DominantColor.resize_value, DominantColor.resize_value), Image.Resampling.LANCZOS
         ).convert("RGBA")
         self.image.close()
         self.image_data = self.resized_image.getdata()
@@ -81,10 +81,15 @@ class DominantColor:
 
         The sum of r,g,b and l should be equal to total_pixels attribute.
         """
-        self.r = self.counter.get("r", 0)
-        self.g = self.counter.get("g", 0)
-        self.b = self.counter.get("b", 0)
-        self.l = self.counter.get("l", 0)
+        r = self.counter.get("r")
+        g = self.counter.get("g")
+        b = self.counter.get("b")
+        l = self.counter.get("l")
+
+        self.r = r if r else 0
+        self.g = g if g else 0
+        self.b = b if b else 0
+        self.l = l if l else 0
 
     def generate_dominant_color_of_pixels_of_image_array(self) -> None:
 
